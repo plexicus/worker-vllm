@@ -18,6 +18,9 @@ TOKENIZER = os.environ.get('TOKENIZER', None)
 USE_FULL_METRICS = os.environ.get('USE_FULL_METRICS', True)
 QUANTIZATION = os.environ.get('QUANTIZATION', None)
 
+if len(TOKENIZER) == 0:
+    TOKENIZER = None
+
 if not MODEL_NAME:
     print("Error: The model has not been provided.")
 
