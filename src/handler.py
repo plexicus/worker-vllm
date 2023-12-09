@@ -4,7 +4,7 @@
 # Start the vLLM serving layer on our RunPod worker.
 from typing import Generator
 from metrics import vllm_log_system_stats
-from templates import DEFAULT_TEMPLATE, LLAMA2_TEMPLATE
+from templates import DEFAULT_TEMPLATE, LLAMA2_TEMPLATE, DEEPSEEK_TEMPLATE
 from vllm import AsyncLLMEngine, SamplingParams, AsyncEngineArgs
 from vllm.utils import random_uuid
 import runpod
@@ -151,6 +151,8 @@ async def handler_streaming(job: dict) -> Generator[dict[str, list], None, None]
     llama_models = ["llama-2-7b-chat-hf", "llama-2-13b-chat-hf", "llama-2-70b-chat-hf", "elinas/chronos-13b-v2"]
     if any(model_name.lower() in MODEL_NAME.lower() for model_name in llama_models):
         template = LLAMA2_TEMPLATE
+    elif "deepseek" in MODEL_NAME.lower():
+        template = DEEPSEEK_TEMPLATE
     else:
         template = DEFAULT_TEMPLATE
 
@@ -306,6 +308,8 @@ async def handler(job: dict) -> dict[str, list]:
     llama_models = ["llama-2-7b-chat-hf", "llama-2-13b-chat-hf", "llama-2-70b-chat-hf", "elinas/chronos-13b-v2"]
     if any(model_name.lower() in MODEL_NAME.lower() for model_name in llama_models):
         template = LLAMA2_TEMPLATE
+    elif "deepseek" in MODEL_NAME.lower():
+        template = DEEPSEEK_TEMPLATE
     else:
         template = DEFAULT_TEMPLATE
 
