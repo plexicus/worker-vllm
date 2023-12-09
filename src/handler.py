@@ -18,7 +18,7 @@ TOKENIZER = os.environ.get('TOKENIZER', None)
 USE_FULL_METRICS = os.environ.get('USE_FULL_METRICS', True)
 QUANTIZATION = os.environ.get('QUANTIZATION', None)
 
-if len(TOKENIZER) == 0:
+if not TOKENIZER:
     TOKENIZER = None
 
 if not MODEL_NAME:
@@ -46,6 +46,8 @@ engine_args = AsyncEngineArgs(
     seed=0,
     disable_log_stats=False,
     quantization=QUANTIZATION,
+    max_model_len=8192,
+    gpu_memory_utilization=0.7
 )
 
 # Create the vLLM asynchronous engine
